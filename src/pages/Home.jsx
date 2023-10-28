@@ -1,11 +1,19 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { changeState } from '../features/uxSlice'
 
 export default function HomePage() {
+  const dispatch = useDispatch()
   const uiState = useSelector(state => state.ui)
 
-  console.log(uiState)
+  const handleDispatch = () => {
+    dispatch(changeState('Parámetro'))
+  }
+
   return (
-    <div className='text-black'>HomePage</div>
+    <div className='text-black'>
+      HomePage
+      <button onClick={handleDispatch}>Dispatch</button>
+    </div>
   )
 }
