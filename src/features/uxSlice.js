@@ -16,7 +16,7 @@ export const uxSlice = createSlice({
 			console.log(state, action)
 		},
 		deleteTask: (state, action) => {
-
+			
 		}
 	}
 })
