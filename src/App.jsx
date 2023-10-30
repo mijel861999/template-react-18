@@ -6,12 +6,32 @@ import { Routes, Route } from 'react-router-dom'
 import HomePage from './pages/Home'
 import LoginPage from './pages/Login'
 
+// Router
+import PublicRouter from './router/PublicRouter'
+import PrivateRouter from './router/PrivateRouter'
+
 function App() {
   return (
     <div className='app'>
       <Routes>
-        <Route path='/' element={<HomePage />} />
-        <Route path='/login' element={<LoginPage />} />
+        <Route
+          exact
+          path='/'
+          element={
+            <PrivateRouter>
+              <HomePage />
+            </PrivateRouter>
+          }
+        />
+        <Route
+          exact
+          path='/login'
+          element={
+            <PublicRouter>
+              <LoginPage />
+            </PublicRouter>
+          }
+        />
       </Routes>
     </div>
   )
