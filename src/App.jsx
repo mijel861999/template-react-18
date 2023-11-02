@@ -5,6 +5,7 @@ import { Routes, Route } from 'react-router-dom'
 // Pages
 import HomePage from './pages/Home'
 import LoginPage from './pages/Login'
+import RegisterPage from './pages/Register'
 
 // Router
 import PublicRouter from './router/PublicRouter'
@@ -29,6 +30,15 @@ function App() {
           element={
             <PublicRouter>
               <LoginPage />
+            </PublicRouter>
+          }
+        />
+        <Route
+          exact
+          path='/registro'
+          element={
+            <PublicRouter>
+              <RegisterPage />
             </PublicRouter>
           }
         />
