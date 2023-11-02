@@ -5,6 +5,8 @@ import { Navigate } from 'react-router-dom'
 export default function PublicRouter({ children }) {
   const user = localStorage.getItem(USER_DATA)
 
+  console.log(user)
+
   if (!user) {
     return children
   }

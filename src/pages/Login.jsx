@@ -1,16 +1,42 @@
 import React from 'react'
 import useForm from '../hooks/useForm'
 import logo from '../assets/logo.png'
+import * as UserService from '../services/userServices.js'
+import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 
 export default function LoginPage() {
+  const navigate = useNavigate()
   const { formData, handleChange, resetForm } = useForm({
     email: "",
     password: "",
   })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(formData)
+    if (!formData.email || !formData.password) {
+      alert('Complete todos los campos');
+      return
+    }
+
+
+    try {
+      await UserService.loginUser(formData);
+      navigate('/')
+    } catch (error) {
+      console.error('Error al crear el usuario:', error);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   }
 
   return (
@@ -18,7 +44,7 @@ export default function LoginPage() {
       <div className="max-w-md w-full p-6 space-y-6 bg-white rounded-lg shadow-md">
         <div className="text-center">
           <img
-            src={ logo } // Reemplaza con la ruta de tu logo
+            src={logo}
             alt="Logo de la aplicación"
             className="w-40 mx-auto mb-4"
           />
@@ -26,12 +52,12 @@ export default function LoginPage() {
         <h2 className="text-3xl font-extrabold text-center">Iniciar sesión</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="username" className="block font-medium">Nombre de usuario</label>
+            <label htmlFor="email" className="block font-medium">Correo Electrónico</label>
             <input
-              type="text"
+              type="email"
               id="email"
               name="email"
-              value={formData.username}
+              value={formData.email}
               onChange={handleChange}
               className="mt-1 p-2 border border-gray-300 rounded w-full"
             />
@@ -53,7 +79,24 @@ export default function LoginPage() {
             </button>
           </div>
         </form>
+        
+        <div className="text-center flex justify-between w-full">
+          <a href="/registro" className="text-blue-500 hover:underline">Crear una cuenta</a>
+          <a href="/olvide-contrasena" className="text-red-500 hover:underline">Olvidé mi contraseña</a>
+        </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div> 
   )
 }
