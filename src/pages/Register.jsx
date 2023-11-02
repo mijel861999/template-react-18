@@ -8,19 +8,31 @@ import { ToastContainer, toast } from 'react-toastify'
 export default function RegisterPage() {
   const navigate = useNavigate()
   const { formData, handleChange, resetForm } = useForm({
+    names: "",
     email: "",
     password: "",
+    repeatPassword: "",
   })
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     console.log(formData)
-    if (!formData.email || !formData.password) {
-      alert('Complete todos los campos');
+
+    if (!formData.email || !formData.password || !formData.names || !formData.repeatPassword) {
+      toast.error("Complete todos los campos!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
       return
     }
 
-
+    /*
     try {
       await UserService.loginUser(formData);
       navigate('/')
@@ -37,6 +49,7 @@ export default function RegisterPage() {
         theme: "light",
       });
     }
+    */
   }
 
   return (
@@ -51,6 +64,17 @@ export default function RegisterPage() {
         </div>
         <h2 className="text-3xl font-extrabold text-center">Regístrate</h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email" className="block font-medium">Nombre Completo</label>
+            <input
+              type="text"
+              id="names"
+              name="names"
+              value={formData.names}
+              onChange={handleChange}
+              className="mt-1 p-2 border border-gray-300 rounded w-full"
+            />
+          </div>
           <div>
             <label htmlFor="email" className="block font-medium">Correo Electrónico</label>
             <input
@@ -74,8 +98,19 @@ export default function RegisterPage() {
             />
           </div>
           <div>
+            <label htmlFor="password" className="block font-medium">Repite la contraseña</label>
+            <input
+              type="password"
+              id="repeatPassword"
+              name="repeatPassword"
+              value={formData.repeatPassword}
+              onChange={handleChange}
+              className="mt-1 p-2 border border-gray-300 rounded w-full"
+            />
+          </div>
+          <div>
             <button type="submit" className="w-full p-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-300">
-              Ingresar
+              Registrar
             </button>
           </div>
         </form>
