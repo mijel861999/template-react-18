@@ -2,11 +2,10 @@ import React from 'react'
 import useForm from '../hooks/useForm'
 import logo from '../assets/logo.png'
 import * as UserService from '../services/userServices.js'
-import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 
 export default function RegisterPage() {
-  const navigate = useNavigate()
   const { formData, handleChange, resetForm } = useForm({
     names: "",
     email: "",
@@ -32,10 +31,18 @@ export default function RegisterPage() {
       return
     }
 
-    /*
     try {
-      await UserService.loginUser(formData);
-      navigate('/')
+      await UserService.registerUser(formData);
+      toast.success("Usuario creado con éxito!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     } catch (error) {
       console.error('Error al crear el usuario:', error);
       toast.error(error.message, {
@@ -49,7 +56,6 @@ export default function RegisterPage() {
         theme: "light",
       });
     }
-    */
   }
 
   return (
@@ -116,7 +122,7 @@ export default function RegisterPage() {
         </form>
         
         <div className="text-center">
-          ¿Tienes una cuenta? <a href="/login" className="text-blue-500 hover:underline">Ingresa</a>
+          ¿Tienes una cuenta? <Link to="/login" className="text-blue-500 hover:underline">Ingresa</Link>
         </div>
       </div>
       <ToastContainer

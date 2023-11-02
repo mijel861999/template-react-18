@@ -4,6 +4,7 @@ import logo from '../assets/logo.png'
 import * as UserService from '../services/userServices.js'
 import { useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
+import { Link } from 'react-router-dom'
 
 export default function LoginPage() {
   const navigate = useNavigate()
@@ -81,8 +82,8 @@ export default function LoginPage() {
         </form>
         
         <div className="text-center flex justify-between w-full">
-          <a href="/registro" className="text-blue-500 hover:underline">Crear una cuenta</a>
-          <a href="/olvide-contrasena" className="text-red-500 hover:underline">Olvidé mi contraseña</a>
+          <Link to="/registro" className="text-blue-500 hover:underline">Crear una cuenta</Link>
+          <Link to="/olvide-contrasena" className="text-red-500 hover:underline">Olvidé mi contraseña</Link>
         </div>
       </div>
       <ToastContainer
