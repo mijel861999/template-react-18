@@ -4,8 +4,10 @@ import logo from '../assets/logo.png'
 import * as UserService from '../services/userServices.js'
 import { ToastContainer, toast } from 'react-toastify'
 import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export default function RegisterPage() {
+  const navigate = useNavigate()
   const { formData, handleChange, resetForm } = useForm({
     names: "",
     email: "",
@@ -33,7 +35,7 @@ export default function RegisterPage() {
 
     try {
       await UserService.registerUser(formData);
-      toast.success("Usuario creado con éxito!", {
+      toast.success("Usuario creado con éxito! Redirigiendo al login", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -43,6 +45,10 @@ export default function RegisterPage() {
         progress: undefined,
         theme: "light",
       });
+
+      setTimeout(() => {
+        navigate('/login')
+      }, 2000)
     } catch (error) {
       console.error('Error al crear el usuario:', error);
       toast.error(error.message, {
