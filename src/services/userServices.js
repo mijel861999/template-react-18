@@ -60,3 +60,30 @@ export const registerUser = async (data) => {
 		throw new Error(e)
 	}
 }
+
+export const checkTokenValid = async(token) => {
+	try {
+		const response = await fetch(`${URL_API_BACKEND}/checkTokenValid`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				token
+			})
+		})
+
+		const data = await response.json()
+
+		if (!data.ok) {
+			throw new Error(data.message)
+		}
+
+		console.log(data)
+
+		return data
+	} catch(e) {
+		console.log(e)
+		throw new Error(e)
+	}
+}

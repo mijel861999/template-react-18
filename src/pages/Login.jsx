@@ -55,6 +55,10 @@ export default function LoginPage() {
     }
   }
 
+  const handleSendEmailForRecoverPassword = async (e) => {
+
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="max-w-md w-full p-6 space-y-6 bg-white rounded-lg shadow-md">
