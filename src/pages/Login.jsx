@@ -16,7 +16,6 @@ export default function LoginPage() {
 
   const [recoverEmail, setRecoverEmail ] = useState("")
 
-
   const [isGenericModalOpen, setGenericModalOpen] = useState(false);
 
   const openGenericModal = () => {
@@ -55,7 +54,25 @@ export default function LoginPage() {
     }
   }
 
-  const handleSendEmailForRecoverPassword = async (e) => {
+  const handleSendEmailForRecoverPassword = async () => {
+    console.log(recoverEmail)
+    try {
+      await UserService.sendEmailForRecover(recoverEmail);
+      alert("Correo enviado satisfactoriamente...")
+      setRecoverEmail('')
+    } catch (error) {
+      console.error('Error al enviar el email de recuperación:', error);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
 
   }
 
@@ -115,7 +132,12 @@ export default function LoginPage() {
             onChange={e => setRecoverEmail(e.target.value)}
             className="mt-1 p-2 border border-gray-300 rounded w-full"
           />
-          <button className="w-full p-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-300 mt-4">Recuperar contraseña</button>
+          <button
+            className="w-full p-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 focus:outline-none focus:ring focus:ring-indigo-300 mt-4"
+            onClick={handleSendEmailForRecoverPassword}
+          >
+            Recuperar contraseña
+          </button>
         </div>
       </GenericModal>
       <ToastContainer
